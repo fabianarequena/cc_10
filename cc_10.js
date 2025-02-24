@@ -99,3 +99,32 @@ const inventory = new Inventory();
 inventory.addProduct(prod1);
 inventory.listProducts();
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
+
+
+// Task 4 - Implementing Order Management
+// Added functionality to place orders, ensuring stock is available before processing.
+// Also lists all orders placed so far.
+
+Inventory.prototype.placeOrder = function(orderId, product, quantity) {
+    if (quantity < 0) {
+        console.log("Quantity must be a non-negative value.");
+        return;
+    }
+    if (product.stock >= quantity) {
+        const order = new Order(orderId, product, quantity);
+        if (order.orderId) this.orders.push(order);
+    } else {
+        console.log("Insufficient stock to place order.");
+    }
+};
+
+Inventory.prototype.listOrders = function() {
+    this.orders.forEach(order => console.log(order.getOrderDetails()));
+};
+
+// Test Cases for Task 4
+inventory.placeOrder(601, prod1, 2);
+inventory.listOrders();
+// Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
+console.log(prod1.getDetails());
+
