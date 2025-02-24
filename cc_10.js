@@ -1,4 +1,4 @@
-// Task 1 - Product Class
+// Task 1 - Creating a Product Class
 // This class represents a product with properties: name, ID, price, and stock
 // It has methods to get product details and update stock when an order is placed
 
@@ -28,13 +28,17 @@ class Product {
     }
 }
 
+// Test Cases for Task 1
 const prod1 = new Product("Laptop", 101, 1200, 10);
-console.log(prod1.getDetails());
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 10"
+
 prod1.updateStock(3);
-console.log(prod1.getDetails());
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 7"
 
 
-// Task 2 - Order Class
+// Task 2 - Creating an Order Class
 // This class represents an order with order ID, product, quantity, and total price.
 // It checks stock before placing an order and updates the product's stock accordingly.
 
@@ -60,6 +64,38 @@ class Order {
     }
 }
 
+// Test Cases for Task 2
 const order1 = new Order(501, prod1, 2);
-if (order1.orderId) console.log(order1.getOrderDetails());
-console.log(prod1.getDetails());
+console.log(order1.getOrderDetails()); 
+// Expected output: "Order ID: 501, Product: Laptop, Quantity: 2, Total Price: $2400"
+
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5" (Stock reduced)
+
+
+// Task 3 - Creating an Inventory Class
+// This class manages a collection of products and allows adding new products to the inventory.
+// It also provides a method to list all products in inventory.
+
+class Inventory {
+    constructor() {
+        this.products = [];
+        this.orders = [];
+    }
+
+    // Adds a new product to the inventory
+    addProduct(product) {
+        this.products.push(product);
+    }
+
+    // Lists all products in the inventory
+    listProducts() {
+        this.products.forEach(product => console.log(product.getDetails()));
+    }
+}
+
+// Test Cases for Task 3
+const inventory = new Inventory();
+inventory.addProduct(prod1);
+inventory.listProducts();
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
