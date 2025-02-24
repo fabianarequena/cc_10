@@ -32,3 +32,34 @@ const prod1 = new Product("Laptop", 101, 1200, 10);
 console.log(prod1.getDetails());
 prod1.updateStock(3);
 console.log(prod1.getDetails());
+
+
+// Task 2 - Order Class
+// This class represents an order with order ID, product, quantity, and total price.
+// It checks stock before placing an order and updates the product's stock accordingly.
+
+class Order {
+    constructor(orderId, product, quantity) {
+        if (quantity < 0) {
+            throw new Error("Quantity must be a non-negative value.");
+        }
+        if (product.stock < quantity) {
+            console.log("Order cannot be placed due to insufficient stock.");
+            return;
+        }
+        this.orderId = orderId;
+        this.product = product;
+        this.quantity = quantity;
+        this.totalPrice = product.price * quantity;
+        product.updateStock(quantity);
+    }
+
+    // Returns order details as a formatted string
+    getOrderDetails() {
+        return `Order ID: ${this.orderId}, Product: ${this.product.name}, Quantity: ${this.quantity}, Total Price: $${this.totalPrice}`;
+    }
+}
+
+const order1 = new Order(501, prod1, 2);
+if (order1.orderId) console.log(order1.getOrderDetails());
+console.log(prod1.getDetails());
