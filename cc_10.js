@@ -127,4 +127,29 @@ inventory.placeOrder(601, prod1, 2);
 inventory.listOrders();
 // Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
 console.log(prod1.getDetails());
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
+
+
+// Task 5 - Implementing Product Restocking
+// Adds a method to restock products, increasing their stock level.
+// Ensures the product exists before updating the stock.
+
+Inventory.prototype.restockProduct = function(productId, quantity) {
+    if (quantity < 0) {
+        console.log("Restock quantity must be a non-negative value.");
+        return;
+    }
+    const product = this.products.find(p => p.id === productId);
+    if (product) {
+        product.stock += quantity;
+        console.log(`Restocked Product ID: ${productId} with ${quantity} units.`);
+    } else {
+        console.log("Product not found in inventory.");
+    }
+};
+
+// Test Cases for Task 5
+inventory.restockProduct(101, 5);
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 8"
 
